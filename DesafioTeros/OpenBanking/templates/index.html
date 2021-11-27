@@ -1,0 +1,15 @@
+<head></head>
+<body>
+    {% for server in objeto_list %}
+        Nome: {{ server.nome_empresa }}<br><br>
+        {% if server.svg %}
+            <svg width="90" height="90">       
+                <image xlink:href={{ server.svg_link }} width="90" height="90"/>    
+            </svg>
+       {% else %}
+            <image src={{ server.svg_link }} width="90" height="90" />
+       {% endif %}
+        Nome do Servidor de Autenticação: {{ server.nome_server }}<br><br>
+        URL do Servidor de Autenticação: <a href={{ server.url_server }}>{{ server.url_server }}<br><br><br><br></a>
+    {% endfor %}   
+</body>
