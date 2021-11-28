@@ -22,20 +22,22 @@
             font-size: 16px;
             color: #24252a;
             text-decoration: none;
+            list-style: none;
         }
 
         header {
             display: flex;
             justify-content: space-between;
-            position: fixed; /* Set the navbar to fixed position */
-            top: 0; /* Position the navbar at the top of the page */
-            width: 100%; /* Full width */
+            position: fixed;
+            top: 0;
+            width: 100%;
             align-items: center;
-            padding: 30px 10% 100px 10%;
+            padding: 30px 10% 30px 10%;
+            border-bottom: 1px solid black;
         }
-        .logo {
+        /* .logo {
             cursor: pointer;
-        }
+        } */
         .nav__links{
             list-style: none;
         }
@@ -68,12 +70,33 @@
             font-size: 16px;
             color: #24252a;
             text-decoration: none;
+            padding-top: 100px;
         }
 
         details {
             margin-left: 10%;
             margin-right: 10%;
-            padding: 20px 50px 50px 20px;
+            padding: 20px 30px 20px 50px;
+        }
+        summary {
+            cursor: pointer;
+        }
+
+        #listaservidores1{
+            padding: 50px 0 20px 2%;
+            float: left;
+        }
+        #listaservidores2{
+            padding: 50px 0 20px 150px;
+        }
+        #listaservidores3{
+            padding: 20px 0 20px 150px;
+        }
+
+        h1{
+            margin-left: 10%;
+            margin-right: 10%;
+            padding: 50px 30px 30px 50px;
         }
     </style>
 <body>
@@ -86,22 +109,28 @@
         </nav>
         <a class="cta" href="https://www.linkedin.com/in/lucas-noriyuki-homi-dos-santos/"><button>LinkedIn</button></a>
     </header>
-    {% for server in objeto_list %}
-        <details>
-            <summary>{{ server.nome_empresa }}</summary>
-        <ul>
-        <li>
-        {% if server.svg %}
-            <svg width="90" height="90">       
-                <image xlink:href={{ server.svg_link }} width="90" height="90"/>    
-            </svg>
-        {% else %}
-                <image src={{ server.svg_link }} width="90" height="90" />
-        {% endif %}</li>
-            <li>Nome do Servidor de Autenticação: {{ server.nome_server }}</li>
-            <li>URL do Servidor de Autenticação: <a href={{ server.url_server }}>{{ server.url_server }}</a></li>
-        </ul>
-        </details>
-    {% endfor %}
+    <h1>Lista de Participantes no Open Banking</h1>
+    {% if not objeto_list == None %}
+        {% for server in objeto_list %}
+                <details>
+                    <summary>{{ server.nome_empresa }}</summary>
+                <ul>
+                <li id="listaservidores1">
+                {% if server.svg %}
+                    <svg width="90" height="90">       
+                        <image xlink:href={{ server.svg_link }} width="90" height="90"/>    
+                    </svg>
+                {% else %}
+                        <image src={{ server.svg_link }} width="90" height="90" />
+                {% endif %}</li>
+                    <li id="listaservidores2"><b><i>Nome do Servidor de Autenticação:</i></b>   {{ server.nome_server }}</li>
+                    <li id="listaservidores3"><b><i>URL do Servidor de Autenticação:</i></b> <a href={{ server.url_server }}>  {{ server.url_server }}</a></li>
+                </ul>
+                </details>
+        {% endfor %}
+    {% endif %}
+    <form method="POST"> {% csrf_token %}
+        <input type='submit' value='Deletar Banco de dados!' name = "deletar_db"/>
+    </form>
 </body>
 </html>
